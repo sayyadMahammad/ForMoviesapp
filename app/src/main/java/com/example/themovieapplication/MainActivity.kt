@@ -43,7 +43,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MyMovieResponse>, t: Throwable) {
-                Toast.makeText(applicationContext,t.localizedMessage,Toast.LENGTH_LONG).show()
+//                Toast.makeText(applicationContext,t.localizedMessage,Toast.LENGTH_LONG).show()
+                val intent=Intent(this@MainActivity,FailureActivity::class.java)
+                intent.putExtra("message",t.localizedMessage)
+                startActivity(intent)
             }
 
         })

@@ -22,13 +22,11 @@ class MyMoviesAdapter (
 
 
                     movie.apply {
-                        itemView.movieTitle.text= title
-                        itemView.movieReleaseDate.text= release
+                        itemView.movieTitle.text = title
+                        itemView.movieReleaseDate.text = release
+                        Glide.with(itemView).load(ImageBase + movie.poster)
+                            .into(itemView.moviePoster)
                     }
-
-
-
-                    Glide.with(itemView).load(ImageBase+movie.poster).into(itemView.moviePoster)
                     itemView.setOnClickListener { listener(movie) }
                 }
             }
