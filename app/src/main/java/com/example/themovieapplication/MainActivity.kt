@@ -1,8 +1,11 @@
 package com.example.themovieapplication
 
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,23 +22,41 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    //companion object  { val INTENT_PARCELABLE = "OBJECT_INTENT"     }  //
    lateinit var mainViewModel : MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-
         moviestList.layoutManager=LinearLayoutManager(this)
         moviestList.setHasFixedSize(true)
 
-        GlobalScope.launch(Dispatchers.IO) {
+        val dialog = Dialog(this)
+        dialog.apply {
+            setContentView(R.layout.progressbar_item)
+            setCancelable(true)
+             show()
+        }
+
+        mainViewModel.apply {
+            onLoadingResponse().observe(this@MainActivity,{
+                if(it) { dialog.dismiss()}
+            })
+           onFailureResponse().observe(this@MainActivity,{
+                if(it) {
+                    var intent = Intent(this@MainActivity, FailureActivity::class.java)
+                    startActivity(intent)
+                }
+
+            })
+        }
+
+
+
+        GlobalScope.launch(Dispatchers.Main) {
             mainViewModel.getMovieData { movies: List<MyMovies> ->
                 moviestList.adapter = MyMoviesAdapter(this@MainActivity, movies) {
                     val intent = Intent(this@MainActivity, DetailsActivity::class.java)//
-                    //intent.putExtra(INTENT_PARCELABLE,it)
                     startActivity(intent)
 
                 }
