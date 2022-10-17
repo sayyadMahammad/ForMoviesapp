@@ -12,9 +12,11 @@ import retrofit2.Response
 
 class MainViewModel :ViewModel() {
 
-    fun getMovieData(callback: (List<MyMovies>)->Unit){
+
+   suspend  fun getMovieData(callback: (List<MyMovies>)->Unit){
 
         val apiService = MovieApiService.getInstance().create(MyMovieApiInterface::class.java)
+
         apiService.getMoviesList().enqueue(object : Callback<MyMovieResponse> {
             override fun onResponse(
                 call: Call<MyMovieResponse>,

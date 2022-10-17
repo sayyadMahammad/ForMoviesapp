@@ -11,6 +11,7 @@ import com.example.themovieapplication.models.MyMovies
 import com.example.themovieapplication.service.MovieApiService
 import com.example.themovieapplication.service.MyMovieApiInterface
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -29,12 +30,15 @@ class MainActivity : AppCompatActivity() {
 
         moviestList.layoutManager=LinearLayoutManager(this)
         moviestList.setHasFixedSize(true)
-       mainViewModel.getMovieData { movies : List<MyMovies>->
-            moviestList.adapter=MyMoviesAdapter(this,movies){
-                val intent = Intent(this,DetailsActivity::class.java)//
-              //intent.putExtra(INTENT_PARCELABLE,it)
-                startActivity(intent)
 
+        GlobalScope.launch(Dispatchers.IO) {
+            mainViewModel.getMovieData { movies: List<MyMovies> ->
+                moviestList.adapter = MyMoviesAdapter(this@MainActivity, movies) {
+                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)//
+                    //intent.putExtra(INTENT_PARCELABLE,it)
+                    startActivity(intent)
+
+                }
             }
         }
     }
