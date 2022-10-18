@@ -12,12 +12,12 @@ import com.example.themovieapplication.models.MyMovies
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 class MyMoviesAdapter (
-    val context: Context,//
+    val context: Context,
     private val movies:List<MyMovies>,
-    val listener  : (MyMovies)->Unit //
+    private val listener  : (MyMovies)->Unit
         ) : RecyclerView.Adapter<MyMoviesAdapter.MovieViewHolder>() {
             class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
-                fun bindMovie(movie : MyMovies, listener : (MyMovies)->Unit ){   //
+                fun bindMovie(movie : MyMovies, listener : (MyMovies)->Unit ){
                      val ImageBase = "https://image.tmdb.org/t/p/w500/"
 
 
