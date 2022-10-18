@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TheMovieApplication</string>
+    <string name="Loading">Loading...!!</string>
+    <integer name="margin">45</integer>
 </resources>
