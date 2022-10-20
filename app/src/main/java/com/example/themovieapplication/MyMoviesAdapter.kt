@@ -12,7 +12,7 @@ import com.example.themovieapplication.models.MyMovies
 
 
 class MyMoviesAdapter (
-     val listener  : ItemClicked
+    val itemClicked : (MyMovies)->Unit
         ) : RecyclerView.Adapter<MyMoviesAdapter.MovieViewHolder>() {
 
             class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
@@ -37,7 +37,7 @@ class MyMoviesAdapter (
        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item,parent,false)
         val  newItemView= MovieViewHolder(view)
         view.setOnClickListener {
-            listener.OnItemClicked(moviesList[newItemView.adapterPosition])
+            itemClicked(moviesList[newItemView.adapterPosition])
         }
 
         return newItemView
@@ -52,7 +52,4 @@ class MyMoviesAdapter (
     }
 
     override fun getItemCount(): Int = moviesList.size
-}
-interface ItemClicked{
-    fun OnItemClicked(item:MyMovies)
 }

@@ -25,7 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), ItemClicked {
+class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
 
     @Inject
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), ItemClicked {
             setCancelable(true)
             show()
         }
-        val movieAdapter by lazy {MyMoviesAdapter(this)}
+        val movieAdapter by lazy {MyMoviesAdapter(::OnItemClicked)}
         moviestList.adapter=movieAdapter
 
 
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), ItemClicked {
 
     }
 
-    override fun OnItemClicked(item: MyMovies) {
+     fun OnItemClicked(item: MyMovies) {
         val title = item.title
         val imagePoster = item.poster
         val releaseDate = item.release
