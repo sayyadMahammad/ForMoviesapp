@@ -13,18 +13,24 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel(private val myMovieApiInterface: MyMovieApiInterface):ViewModel() {
-      private var _myMoviesList = MutableLiveData<List<MyMovies>>()
+class MainViewModel @Inject constructor (private val moviesRepository: MoviesRepository):ViewModel() {
+
      val myMoviesList : LiveData<List<MyMovies>>
-    get()= _myMoviesList
+    get()= moviesRepository.moviesList
 
-    private var failureFlag: MutableLiveData<Boolean> = MutableLiveData()
-    private var loadingFlag: MutableLiveData<Boolean> = MutableLiveData()
-    fun onFailureResponse():MutableLiveData<Boolean>{
+    private val failureFlag: LiveData<Boolean>
+    get() = moviesRepository.failureFlag
+
+    private val loadingFlag: LiveData<Boolean>
+    get() = moviesRepository.loadindFlag
+
+
+    fun onFailureResponse(): LiveData<Boolean>{
         return failureFlag
     }
-    fun onLoadingResponse():MutableLiveData<Boolean>{
+    fun onLoadingResponse():LiveData<Boolean>{
      return loadingFlag
     }
 
@@ -33,13 +39,8 @@ class MainViewModel(private val myMovieApiInterface: MyMovieApiInterface):ViewMo
       init {
 
             viewModelScope.launch {
-                val apiResponse = myMovieApiInterface.getMoviesList()
-                if (apiResponse.isSuccessful&&apiResponse.body()!=null) {
-                    loadingFlag.postValue(true)
-                    _myMoviesList.postValue(apiResponse.body()!!.movies)
-                } else {
-                    failureFlag.postValue(true)
-                }
+
+                moviesRepository.getMovieList()
             }
 
       }

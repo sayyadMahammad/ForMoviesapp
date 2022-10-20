@@ -1,43 +1,48 @@
 package com.example.themovieapplication
 
-import android.content.Context
+
 import android.view.LayoutInflater
-import android.view.OnReceiveContentListener
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.themovieapplication.models.MyMovies
-import kotlinx.android.synthetic.main.movie_item.view.*
+
 
 class MyMoviesAdapter (
-    val context: Context,
-    private val movies:List<MyMovies>,
-    private val listener  : (MyMovies)->Unit
+    private val moviesList:List<MyMovies>,
+     val listener  : ItemClicked
         ) : RecyclerView.Adapter<MyMoviesAdapter.MovieViewHolder>() {
+
             class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
-                fun bindMovie(movie : MyMovies, listener : (MyMovies)->Unit ){
-                     val ImageBase = "https://image.tmdb.org/t/p/w500/"
+                var movieTitle = itemView.findViewById<TextView>(R.id.movieTitle)
+                var  movieReleaseDate  =itemView.findViewById<TextView>(R.id.movieReleaseDate)
+                var moviePoster = itemView.findViewById<ImageView>(R.id.moviePoster)
 
-
-                    movie.apply {
-                        itemView.movieTitle.text = title
-                        itemView.movieReleaseDate.text = release
-                        Glide.with(itemView).load(ImageBase + movie.poster)
-                            .into(itemView.moviePoster)
-                    }
-                    itemView.setOnClickListener { listener(movie) }
-                }
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-       return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_item,parent,false))
+       val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item,parent,false)
+        val  newItemView= MovieViewHolder(view)
+        view.setOnClickListener {
+            listener.OnItemClicked(moviesList[newItemView.adapterPosition])
+        }
+
+        return newItemView
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-       holder.bindMovie(movies.get(position), listener )
+        val ImageBase = "https://image.tmdb.org/t/p/w500/"
+        holder.movieTitle.text=moviesList[position].title
+        holder.movieReleaseDate.text=moviesList[position].release
+        Glide.with(holder.itemView).load(ImageBase+moviesList[position].poster).into(holder.moviePoster)
+
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = moviesList.size
+}
+interface ItemClicked{
+    fun OnItemClicked(item:MyMovies)
 }

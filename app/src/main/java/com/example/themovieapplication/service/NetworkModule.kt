@@ -9,11 +9,24 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
+    @Singleton
+    @Provides
+    fun providesGson():GsonConverterFactory{
+            return GsonConverterFactory.create()
+    }
+
+
+    @Singleton
+    @Provides
+    fun proviedsRetrofit(gsonConverterFactory: GsonConverterFactory):Retrofit{
+        return Retrofit.Builder().baseUrl("https://api.themoviedb.org/")
+            .addConverterFactory(gsonConverterFactory).build()
+    }
+
+
         @Singleton
         @Provides
-    fun providesMovieApiInterface():MyMovieApiInterface{
-        return Retrofit.Builder().baseUrl("https://api.themoviedb.org/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
-            .create(MyMovieApiInterface::class.java)
+    fun providesMovieApiInterface(retrofit: Retrofit):MyMovieApiInterface{
+        return retrofit.create(MyMovieApiInterface::class.java)
     }
 }

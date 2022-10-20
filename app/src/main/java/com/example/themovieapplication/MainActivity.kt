@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.themovieapplication.applicationcomponent.TheMoviesApplication
 import com.example.themovieapplication.models.MyMovieResponse
 import com.example.themovieapplication.models.MyMovies
 import com.example.themovieapplication.service.MovieApiService
@@ -24,9 +25,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ItemClicked {
     lateinit var mainViewModel: MainViewModel
-    lateinit var moviesComponent: MoviesComponent
 
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        moviesComponent = DaggerMoviesComponent.builder().build()
-        moviesComponent.inject(this)
+
+        (application as TheMoviesApplication).moviesComponent.inject(this)
         mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         moviestList.layoutManager = LinearLayoutManager(this)
          moviestList.setHasFixedSize(true)
@@ -53,12 +53,10 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.apply {
 
             myMoviesList.observe(this@MainActivity, Observer {
-                moviestList.adapter = MyMoviesAdapter(this@MainActivity, it) {
-                   val intent = Intent(this@MainActivity, DetailsActivity::class.java)//
-                    startActivity(intent)
-
-               }
+                moviestList.adapter = MyMoviesAdapter( it,this@MainActivity)
             })
+
+
             onLoadingResponse().observe(this@MainActivity, Observer{
                 if (it) {
                     dialog.dismiss()
@@ -66,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             })
             onFailureResponse().observe(this@MainActivity, Observer{
                 if (it) {
-                    var intent = Intent(this@MainActivity, FailureActivity::class.java)
+                     intent = Intent(this@MainActivity, FailureActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -77,5 +75,16 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    override fun OnItemClicked(item: MyMovies) {
+        val title = item.title
+        val imagePoster = item.poster
+        val releaseDate = item.release
+        intent=Intent(this,DetailsActivity::class.java)
+        intent.putExtra("titleMovie",title)
+       // intent.putExtra("release",releaseDate)
+        intent.putExtra("imagePoster",imagePoster)
+        startActivity(intent)
     }
 }
