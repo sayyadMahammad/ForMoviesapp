@@ -12,7 +12,6 @@ import com.example.themovieapplication.models.MyMovies
 
 
 class MyMoviesAdapter (
-    private val moviesList:List<MyMovies>,
      val listener  : ItemClicked
         ) : RecyclerView.Adapter<MyMoviesAdapter.MovieViewHolder>() {
 
@@ -22,6 +21,17 @@ class MyMoviesAdapter (
                 var moviePoster = itemView.findViewById<ImageView>(R.id.moviePoster)
 
             }
+
+
+    private var resultList = mutableListOf<MyMovies>()
+    private val moviesList:List<MyMovies>
+    get() = resultList
+    fun setData(list :List<MyMovies>){
+        resultList.addAll(list)
+        notifyDataSetChanged()
+    }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item,parent,false)

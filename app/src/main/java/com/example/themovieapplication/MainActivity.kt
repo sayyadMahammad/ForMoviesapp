@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity(), ItemClicked {
             setCancelable(true)
             show()
         }
+        val movieAdapter by lazy {MyMoviesAdapter(this)}
+        moviestList.adapter=movieAdapter
+
 
 
 
@@ -53,7 +56,7 @@ class MainActivity : AppCompatActivity(), ItemClicked {
         mainViewModel.apply {
 
             myMoviesList.observe(this@MainActivity, Observer {
-                moviestList.adapter = MyMoviesAdapter( it,this@MainActivity)
+                movieAdapter.setData(it)
             })
 
 
