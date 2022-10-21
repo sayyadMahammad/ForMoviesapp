@@ -16,23 +16,21 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor (private val moviesRepository: MoviesRepository):ViewModel() {
-
+    private var _myMoviesList = MutableLiveData<List<MyMovies>>()
      val myMoviesList : LiveData<List<MyMovies>>
-    get()= moviesRepository.moviesList
+    get()= _myMoviesList
 
+    private var _failureFlag = MutableLiveData<Boolean>()
     private val failureFlag: LiveData<Boolean>
-    get() = moviesRepository.failureFlag
+    get() =_failureFlag
 
+    private var _loadingFlag = MutableLiveData<Boolean>()
     private val loadingFlag: LiveData<Boolean>
-    get() = moviesRepository.loadindFlag
+    get() = _loadingFlag
 
+    fun onFailureResponse()=failureFlag
+    fun onLoadingResponse()=loadingFlag
 
-    fun onFailureResponse(): LiveData<Boolean>{
-        return failureFlag
-    }
-    fun onLoadingResponse():LiveData<Boolean>{
-     return loadingFlag
-    }
 
 
 
@@ -40,7 +38,16 @@ class MainViewModel @Inject constructor (private val moviesRepository: MoviesRep
 
             viewModelScope.launch {
 
-                moviesRepository.getMovieList()
+               val result= moviesRepository.getMovieList()
+                if (result.isSuccessful&&result.body()!=null){
+                    _loadingFlag.postValue(true)
+                    _myMoviesList.postValue(result.body()!!.movies)
+
+
+                }
+                else {
+                    _failureFlag.postValue(true)
+                }
             }
 
       }

@@ -6,7 +6,7 @@ import dagger.Module
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules=[NetworkModule::class])
+@Component(modules=[NetworkModule::class,RepositoryModule::class])
 interface MoviesComponent {
     fun inject(mainActivity: MainActivity)
 }

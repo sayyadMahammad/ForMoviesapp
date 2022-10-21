@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             })
             onFailureResponse().observe(this@MainActivity, Observer{
                 if (it) {
+                    dialog.dismiss()
                      intent = Intent(this@MainActivity, FailureActivity::class.java)
                     startActivity(intent)
                 }
