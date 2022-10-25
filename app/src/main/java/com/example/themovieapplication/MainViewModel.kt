@@ -8,7 +8,7 @@ import com.example.themovieapplication.models.MyMovies
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor (private val moviesRepository: MoviesRepository):ViewModel() {
+class MainViewModel @Inject constructor (private val useCase :UseCase ):ViewModel() {
     private var _myMoviesList = MutableLiveData<List<MyMovies>>()
      val myMoviesList : LiveData<List<MyMovies>>
     get()= _myMoviesList
@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor (private val moviesRepository: MoviesRep
       init {
              viewModelScope.launch {
 
-               val result= moviesRepository.getMovieList()
+               val result= useCase.getMoviesUC()
                 if (result.isSuccessful&&result.body()!=null){
                     _loadingFlag.postValue(true)
                     _myMoviesList.postValue(result.body()!!.movies)

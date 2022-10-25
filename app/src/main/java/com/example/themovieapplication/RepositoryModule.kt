@@ -1,14 +1,18 @@
 package com.example.themovieapplication
 
+import com.example.themovieapplication.MoviesRepository
+import com.example.themovieapplication.MoviesRepositoryImplementation
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule {
+abstract class RepositoryModule {
     @Singleton
-    @Provides
-    fun providesRepo(repository:MoviesRepositoryImplementation):MoviesRepository{
-        return repository
-    }
+    @Binds
+  abstract  fun providesRepo(moviesRepositoryImplementation: MoviesRepositoryImplementation): MoviesRepository
+
+  @Singleton
+  @Binds
+  abstract fun providesUseCase(useCaseImplementation: UseCaseImp): UseCase
 }

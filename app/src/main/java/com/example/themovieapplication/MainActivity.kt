@@ -49,16 +49,11 @@ class MainActivity : AppCompatActivity() {
         val movieAdapter by lazy {MyMoviesAdapter(::OnItemClicked)}
         moviestList.adapter=movieAdapter
 
-
-
-
-
         mainViewModel.apply {
 
             myMoviesList.observe(this@MainActivity, Observer {
                 movieAdapter.setData(it)
             })
-
 
             onLoadingResponse().observe(this@MainActivity, Observer{
                 if (it) {
@@ -74,10 +69,6 @@ class MainActivity : AppCompatActivity() {
 
             })
         }
-
-
-
-
 
     }
 
