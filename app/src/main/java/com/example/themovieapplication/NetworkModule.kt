@@ -1,5 +1,6 @@
-package com.example.themovieapplication.service
+package com.example.themovieapplication
 
+import com.example.themovieapplication.service.MyMovieApiInterface
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -26,7 +27,7 @@ class NetworkModule {
 
         @Singleton
         @Provides
-    fun providesMovieApiInterface(retrofit: Retrofit):MyMovieApiInterface{
+    fun providesMovieApiInterface(retrofit: Retrofit): MyMovieApiInterface {
         return retrofit.create(MyMovieApiInterface::class.java)
     }
 }
