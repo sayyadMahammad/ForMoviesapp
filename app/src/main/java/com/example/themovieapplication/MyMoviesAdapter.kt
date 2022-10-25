@@ -19,9 +19,7 @@ class MyMoviesAdapter (
                 var movieTitle = itemView.findViewById<TextView>(R.id.movieTitle)
                 var  movieReleaseDate  =itemView.findViewById<TextView>(R.id.movieReleaseDate)
                 var moviePoster = itemView.findViewById<ImageView>(R.id.moviePoster)
-
             }
-
 
     private var resultList = mutableListOf<MyMovies>()
     private val moviesList:List<MyMovies>
@@ -31,15 +29,12 @@ class MyMoviesAdapter (
         notifyDataSetChanged()
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item,parent,false)
         val  newItemView= MovieViewHolder(view)
         view.setOnClickListener {
             itemClicked(moviesList[newItemView.adapterPosition])
         }
-
         return newItemView
     }
 
@@ -48,8 +43,6 @@ class MyMoviesAdapter (
         holder.movieTitle.text=moviesList[position].title
         holder.movieReleaseDate.text=moviesList[position].release
         Glide.with(holder.itemView).load(ImageBase+moviesList[position].poster).into(holder.moviePoster)
-
     }
-
     override fun getItemCount(): Int = moviesList.size
 }

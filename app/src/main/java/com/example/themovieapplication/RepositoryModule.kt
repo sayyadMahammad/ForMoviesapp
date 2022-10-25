@@ -8,7 +8,7 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Singleton
     @Provides
-    fun providesRepo(repository:MoviesRepository):RepositoryInterface{
+    fun providesRepo(repository:MoviesRepositoryImplementation):MoviesRepository{
         return repository
     }
 }
