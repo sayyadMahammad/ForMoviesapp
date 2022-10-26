@@ -1,7 +1,9 @@
-package com.example.themovieapplication
+package com.example.themovieapplication.di
 
 import com.example.themovieapplication.MoviesRepository
 import com.example.themovieapplication.MoviesRepositoryImplementation
+import com.example.themovieapplication.UseCase
+import com.example.themovieapplication.UseCaseImp
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

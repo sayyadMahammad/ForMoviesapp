@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         (application as TheMoviesApplication).moviesComponent.inject(this)
+        (application as TheMoviesApplication).moviesComponent.getMap()
+
         mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
         moviestList.layoutManager = LinearLayoutManager(this)
          moviestList.setHasFixedSize(true)

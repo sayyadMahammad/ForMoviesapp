@@ -1,9 +1,9 @@
 package com.example.themovieapplication.applicationcomponent
 
 import android.app.Application
-import com.example.themovieapplication.DaggerMoviesComponent
+import com.example.themovieapplication.di.DaggerMoviesComponent
 
-import com.example.themovieapplication.MoviesComponent
+import com.example.themovieapplication.di.MoviesComponent
 
 
 
@@ -12,7 +12,7 @@ class TheMoviesApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        moviesComponent = DaggerMoviesComponent.builder().build()  //DaggerMoviesComponent.builder().build()
+        moviesComponent = DaggerMoviesComponent.builder().build()
     }
 
 }
