@@ -25,6 +25,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+
+const val movieTitle = "movietitle"
+const val moviePoster = "movieposter"
+
+
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
 
@@ -77,11 +82,9 @@ class MainActivity : AppCompatActivity() {
      fun OnItemClicked(item: MyMovies) {
         val title = item.title
         val imagePoster = item.poster
-        val releaseDate = item.release
         intent=Intent(this,DetailsActivity::class.java)
-        intent.putExtra("titleMovie",title)
-       // intent.putExtra("release",releaseDate)
-        intent.putExtra("imagePoster",imagePoster)
+        intent.putExtra(movieTitle,title)
+        intent.putExtra(moviePoster,imagePoster)
         startActivity(intent)
     }
 }

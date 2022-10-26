@@ -15,10 +15,10 @@ class DetailsActivity : AppCompatActivity() {
         imagePoster=findViewById(R.id.imagePoster)
         posterTitle=findViewById(R.id.posterTitle)
         val bundle: Bundle? =intent.extras
-       val movieTitle = bundle?.get("titleMovie")
-        val imageUrl = bundle?.get("imagePoster")
+       val movieTitle = bundle?.get(movieTitle)
+        val imageUrl = bundle?.get(moviePoster)
         posterTitle.text=movieTitle.toString()
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500/"+imageUrl).into(imagePoster)
+        Glide.with(this).load(ImageBase+imageUrl).into(imagePoster)
 
     }
 }
