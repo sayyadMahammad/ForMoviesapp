@@ -16,6 +16,7 @@ import com.example.themovieapplication.models.MyMovieResponse
 import com.example.themovieapplication.models.MyMovies
 import com.example.themovieapplication.service.MovieApiService
 import com.example.themovieapplication.service.MyMovieApiInterface
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -29,21 +30,13 @@ import javax.inject.Inject
 const val movieTitle = "movietitle"
 const val moviePoster = "movieposter"
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
-
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        (application as TheMoviesApplication).moviesComponent.inject(this)
-        (application as TheMoviesApplication).moviesComponent.getMap()
-
-        mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         moviestList.layoutManager = LinearLayoutManager(this)
          moviestList.setHasFixedSize(true)
 

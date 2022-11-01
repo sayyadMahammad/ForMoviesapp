@@ -1,18 +1,13 @@
 package com.example.themovieapplication.applicationcomponent
 
 import android.app.Application
-import com.example.themovieapplication.di.DaggerMoviesComponent
-
-import com.example.themovieapplication.di.MoviesComponent
+import dagger.hilt.android.HiltAndroidApp
 
 
-
+@HiltAndroidApp
 class TheMoviesApplication : Application() {
-    lateinit var moviesComponent : MoviesComponent
     override fun onCreate() {
         super.onCreate()
-
-        moviesComponent = DaggerMoviesComponent.builder().build()
     }
 
 }
