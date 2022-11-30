@@ -6,7 +6,11 @@ import kotlinx.android.parcel.Parcelize
 
 
 data class MyMovieResponse(
-    @SerializedName("results")
-    val movies  :  List<MyMovies>
+    @SerializedName(RESULTS)
+    val moviesList  :  List<MyMovies>
 
-)
+){
+    companion object{
+        const val RESULTS ="results"
+    }
+}
