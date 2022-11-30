@@ -14,8 +14,8 @@ android {
         applicationId "com.example.themovieapplication"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -74,7 +74,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
-    //App centre 
+    //App centre
         def appCenterSdkVersion = '4.4.5'
         implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
         implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
