@@ -39,7 +39,7 @@ class MyMoviesAdapter (
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        //val ImageBase = "https://image.tmdb.org/t/p/w500/"
+
         holder.movieTitle.text=moviesList[position].title
         holder.movieReleaseDate.text=moviesList[position].release
         Glide.with(holder.itemView).load(ImageBase+moviesList[position].poster).into(holder.moviePoster)

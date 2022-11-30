@@ -25,21 +25,36 @@ class MainViewModel @Inject constructor (private val useCase :UseCase ):ViewMode
 
     fun onFailureResponse()=failureFlag
     fun onLoadingResponse()=loadingFlag
+//
+//      init {
+//             viewModelScope.launch {
+//
+//               val result= useCase.getMoviesUC()
+//                if (result.isSuccessful&&result.body()!=null){
+//                    _loadingFlag.postValue(true)
+//                    _myMoviesList.postValue(result.body()!!.movies)
+//                }
+//                else {
+//                    _failureFlag.postValue(true)
+//                }
+//            }
+//
+//      }
 
-      init {
-             viewModelScope.launch {
+    init {
+        viewModelScope.launch {
 
-               val result= useCase.getMoviesUC()
-                if (result.isSuccessful&&result.body()!=null){
-                    _loadingFlag.postValue(true)
-                    _myMoviesList.postValue(result.body()!!.movies)
-                }
-                else {
-                    _failureFlag.postValue(true)
-                }
+            val result= useCase.getMoviesUC()
+            if (result.isSuccessful&&result.body()!=null){
+                _loadingFlag.postValue(true)
+                _myMoviesList.postValue(result.body()?.moviesList)
             }
+            else {
+                _failureFlag.postValue(true)
+            }
+        }
 
-      }
+    }
 
 
 

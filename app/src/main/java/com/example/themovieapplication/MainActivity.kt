@@ -1,30 +1,19 @@
 package com.example.themovieapplication
 
+//App centre
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.themovieapplication.applicationcomponent.TheMoviesApplication
-import com.example.themovieapplication.models.MyMovieResponse
 import com.example.themovieapplication.models.MyMovies
-import com.example.themovieapplication.service.MovieApiService
-import com.example.themovieapplication.service.MyMovieApiInterface
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import javax.inject.Inject
 
 
 const val movieTitle = "movietitle"
@@ -36,6 +25,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        AppCenter.start(
+            application, "72bf5f02-43fb-4073-a6d9-83e000ce0fcb",
+            Analytics::class.java, Crashes::class.java
+        )
+
+
+
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         moviestList.layoutManager = LinearLayoutManager(this)
          moviestList.setHasFixedSize(true)
@@ -80,4 +77,13 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(moviePoster,imagePoster)
         startActivity(intent)
     }
+
+//    fun OnItemClicked(item: MyMovies) {
+//      //  val title = item.title
+//        //val imagePoster = item.poster
+//        intent=Intent(this,DetailsActivity::class.java)
+//       // intent.putExtra(movieTitle,title)
+//       // intent.putExtra(moviePoster,imagePoster)
+//        startActivity(intent)
+//    }
 }

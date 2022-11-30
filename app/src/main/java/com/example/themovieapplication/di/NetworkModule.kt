@@ -9,6 +9,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+
+// const val paymentsBaseUrl="https://6377200d5c4777651214a95a.mockapi.io/"
+
 @InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {
@@ -25,6 +28,9 @@ class NetworkModule {
     fun proviedsRetrofit(gsonConverterFactory: GsonConverterFactory):Retrofit{
         return Retrofit.Builder().baseUrl("https://api.themoviedb.org/")
             .addConverterFactory(gsonConverterFactory).build()
+//        return Retrofit.Builder().baseUrl(paymentsBaseUrl)
+//            .addConverterFactory(gsonConverterFactory).build()
+
     }
 
 

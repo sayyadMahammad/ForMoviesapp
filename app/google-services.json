@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "267908612715",
+    "project_id": "the-movies-app-3cdbd",
+    "storage_bucket": "the-movies-app-3cdbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267908612715:android:dc30400c89f056204e672e",
+        "android_client_info": {
+          "package_name": "com.example.themovieapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267908612715-igmbs42sp7pkdrdfim6v887i463fao80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsXbg2NLGB2VJZUzYyHGdi8Gv8pfAFzLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267908612715-igmbs42sp7pkdrdfim6v887i463fao80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
